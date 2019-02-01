@@ -1,5 +1,17 @@
-{{!-- The following component displays Ember's default welcome message. --}}
-{{welcome-page}}
-{{!-- Feel free to remove this! --}}
+{{#bs-button onClick=(action (mut modalTrigger) true)}}Click Me{{/bs-button}}
+Show modal: {{modalTrigger}}
 
-{{outlet}}
+{{#bs-modal open=modalTrigger onHidden=(action (mut modalTrigger) false) as |modal|}}
+  {{#modal.header}}
+    <h4 class="modal-title">Subscribe</h4>
+  {{/modal.header}}
+  {{#modal.body}}
+    {{#bs-form formLayout=formLayout model=this as |form|}}
+      {{form.element label="Value" property="holdoff" required=true}}
+    {{/bs-form}}
+  {{/modal.body}}
+  {{#modal.footer}}
+    {{#bs-button onClick=(action modal.close)}}Cancel{{/bs-button}}
+    {{#bs-button type="success" onClick=(action modal.close)}}Ok{{/bs-button}}
+  {{/modal.footer}}
+{{/bs-modal}}
